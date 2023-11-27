@@ -7,7 +7,8 @@ using Studentadministrasjonssystem;
 
 var data = new Data();
 data.AddTestData();
-ShowMenu();
+
+while (true) ShowMenu();
 
 void ShowMenu()
 {
@@ -56,7 +57,6 @@ void ShowMenu()
             break;
             
     }
-    ShowMenu();
 }
 
 void AddStudentPrompt()
