@@ -20,7 +20,7 @@ public class Data
     {
         Assessments.Add(assessment);
     }
-    
+
     public void AddTestData()
     {
         AddStudent(new Student("Torgeir Granskau", 18, "IT-arkitektur", 1469));
@@ -43,7 +43,7 @@ public class Data
         AddAssessment(new Assessment(1469, "ITEVU4330", 'B'));
         AddAssessment(new Assessment(1235, "ITEVU4330", 'F'));
     }
-    
+
     public void ShowAll()
     {
         ShowStudents();
@@ -74,21 +74,27 @@ public class Data
     public void ShowStudents()
     {
         Console.WriteLine("Studenter: ");
-        foreach (var student in Students)
+        for (var index = 0; index < Students.Count; index++)
         {
-            student.ShowInfo();
+            var student = Students[index];
+            student.ShowInfo(index);
         }
+
+        var selectedIndex = Helpers.AskForInt("Velg student, eller trykk enter for å fortsette: ",false, 0, Students.Count-1);
+        if (selectedIndex == null) return;
+        var SelectedStudent = Students[(int) selectedIndex];
+        SelectedStudent.ShowEditPrompt();
     }
-    
+
     public void AddStudentPrompt()
     {
         var name = Helpers.AskForString("Navn: ", true);
-        var age = Helpers.AskForInt("Alder: ");
+        var age = (int) Helpers.AskForInt("Alder: ", true)!;
         var program = Helpers.AskForString("Studieprogram: ", true);
-        var id = Helpers.AskForInt("StudentID: ");
+        var id = (int) Helpers.AskForInt("StudentID: ", true)!;
         var student = new Student(name, age, program, id);
         student.ShowInfo();
-        if (Helpers.AskForBool("Legg til student?")) 
+        if (Helpers.AskForBool("Legg til student?"))
             AddStudent(student);
     }
 
@@ -96,21 +102,21 @@ public class Data
     {
         var code = Helpers.AskForString("Fagkode: ", true);
         var name = Helpers.AskForString("Fagnavn: ", true);
-        var points = Helpers.AskForInt("Studiepoeng: ");
+        var points = (int) Helpers.AskForInt("Studiepoeng: ", true)!;
         var subject = new Subject(code, name, points);
         subject.ShowInfo();
-        if (Helpers.AskForBool("Legg til fag?")) 
+        if (Helpers.AskForBool("Legg til fag?"))
             AddSubject(subject);
     }
 
     public void AddAssessmentPrompt()
     {
-        var studentId = Helpers.AskForInt("StudentID: ");
+        var studentId = (int) Helpers.AskForInt("StudentID: ", true)!;
         var subjectCode = Helpers.AskForString("Fagkode: ", true);
         var grade = Helpers.AskForChar("Karakter: ");
         var assessment = new Assessment(studentId, subjectCode, grade);
         assessment.ShowInfo();
-        if (Helpers.AskForBool("Legg til karakter?")) 
+        if (Helpers.AskForBool("Legg til karakter?"))
             AddAssessment(assessment);
     }
 }

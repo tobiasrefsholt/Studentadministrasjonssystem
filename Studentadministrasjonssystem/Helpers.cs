@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Studentadministrasjonssystem;
 
 public class Helpers
@@ -7,22 +9,28 @@ public class Helpers
         Console.Write("\nTrykk enter for å fortsette...");
         Console.ReadLine();
     }
-    public static int AskForInt(string label)
+
+    public static int? AskForInt(string label, bool required, int? min = null, int? max = null)
     {
         Console.Write(label);
-        var input = Console.ReadLine();
-        var result = 0;
+        var inputString = Console.ReadLine();
+        if (string.IsNullOrEmpty(inputString) && !required) return null;
         try
         {
-            result = int.Parse(input);
+            if (inputString == null) throw new FormatException();
+            var input = int.Parse(inputString);
+            if ((max == null || input <= max) && (min == null || input >= min)) return input;
+            throw new IndexOutOfRangeException();
         }
         catch (FormatException)
         {
             Console.WriteLine("Not a number, try again.");
-            AskForInt(label);
         }
-
-        return result;
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine($"Tallet må være mellom {min}-{max}. Prøv igjen.");
+        }
+        return AskForInt(label, required, min, max);
     }
 
     public static string AskForString(string label, bool required)
@@ -40,6 +48,7 @@ public class Helpers
         Console.WriteLine("This field is required, please enter a valid input.");
         return AskForString(label, required);
     }
+
     public static bool AskForBool(string label)
     {
         Console.Write(label + "(Y/n)");

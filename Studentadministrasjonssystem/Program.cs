@@ -26,7 +26,6 @@ void ShowMenu()
     {
         case "1":
             data.ShowStudents();
-            Helpers.ContinuePrompt();
             break;
         case "2":
             data.ShowSubjects();

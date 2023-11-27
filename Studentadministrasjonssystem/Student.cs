@@ -19,4 +19,16 @@ public class Student
     {
         Console.WriteLine($"Navn: {_name}, Alder: {_age}, Studieprogram: {_program}, Id: {_id}");
     }
+    
+    public void ShowInfo(int index)
+    {
+        Console.WriteLine($"({index}) Navn: {_name}, Alder: {_age}, Studieprogram: {_program}, Id: {_id}");
+    }
+
+    public void ShowEditPrompt()
+    {
+        Console.Clear();
+        Console.WriteLine($"Edit student: {_name}");
+        Helpers.ContinuePrompt();
+    }
 }
