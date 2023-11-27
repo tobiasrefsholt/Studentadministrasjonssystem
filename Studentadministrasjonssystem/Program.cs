@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Reflection.Metadata;
+using System.Security;
+using System.Xml.Linq;
 using Studentadministrasjonssystem;
 
 var data = new Data();
@@ -71,7 +73,13 @@ void AddStudentPrompt()
 
 void AddSubjectPrompt()
 {
-    throw new NotImplementedException();
+    var code = Helpers.AskForString("Fagkode: ", true);
+    var name = Helpers.AskForString("Fagnavn: ", true);
+    var points = Helpers.AskForInt("Studiepoeng: ");
+    var subject = new Subject(code, name, points);
+    subject.ShowInfo();
+    if (Helpers.AskForBool("Legg til fag?")) 
+        data.AddSubject(subject);
 }
 
 void AddAssessmentPrompt()
