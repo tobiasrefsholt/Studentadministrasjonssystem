@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Reflection.Metadata;
 using Studentadministrasjonssystem;
 
 var data = new Data();
@@ -58,7 +59,14 @@ void ShowMenu()
 
 void AddStudentPrompt()
 {
-    throw new NotImplementedException();
+    var name = Helpers.AskForString("Navn: ", true);
+    var age = Helpers.AskForInt("Alder: ");
+    var program = Helpers.AskForString("Studieprogram: ", true);
+    var id = Helpers.AskForInt("StudentID: ");
+    var student = new Student(name, age, program, id);
+    student.ShowInfo();
+    if (Helpers.AskForBool("Legg til student?")) 
+        data.AddStudent(student);
 }
 
 void AddSubjectPrompt()
