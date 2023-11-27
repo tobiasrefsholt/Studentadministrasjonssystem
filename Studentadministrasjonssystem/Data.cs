@@ -105,6 +105,12 @@ public class Data
 
     public void AddAssessmentPrompt()
     {
-        throw new NotImplementedException();
+        var studentId = Helpers.AskForInt("StudentID: ");
+        var subjectCode = Helpers.AskForString("Fagkode: ", true);
+        var grade = Helpers.AskForChar("Karakter: ");
+        var assessment = new Assessment(studentId, subjectCode, grade);
+        assessment.ShowInfo();
+        if (Helpers.AskForBool("Legg til karakter?")) 
+            AddAssessment(assessment);
     }
 }

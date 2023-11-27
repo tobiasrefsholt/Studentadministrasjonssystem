@@ -46,4 +46,15 @@ public class Helpers
         var input = Console.ReadLine();
         return string.IsNullOrEmpty(input) || input.ToLower() == "y";
     }
+
+    public static char AskForChar(string label)
+    {
+        Console.Write(label);
+        var input = Char.ToUpper(Console.ReadKey().KeyChar);
+        Console.WriteLine();
+        if (input != '\0') return input;
+        Console.WriteLine("Ugyldig input, prøv igjen.");
+        AskForChar(label);
+        return input;
+    }
 }
