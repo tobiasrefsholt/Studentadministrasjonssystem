@@ -41,48 +41,19 @@ void ShowMenu()
             Helpers.ContinuePrompt();
             break;
         case "5":
-            AddStudentPrompt();
+            data.AddStudentPrompt();
             Helpers.ContinuePrompt();
             break;
         case "6":
-            AddSubjectPrompt();
+            data.AddSubjectPrompt();
             Helpers.ContinuePrompt();
             break;
         case "7":
-            AddAssessmentPrompt();
+            data.AddAssessmentPrompt();
             Helpers.ContinuePrompt();
             break;
         default:
             Console.WriteLine("Ugyldig valg. Prøv igjen.");
             break;
-            
     }
-}
-
-void AddStudentPrompt()
-{
-    var name = Helpers.AskForString("Navn: ", true);
-    var age = Helpers.AskForInt("Alder: ");
-    var program = Helpers.AskForString("Studieprogram: ", true);
-    var id = Helpers.AskForInt("StudentID: ");
-    var student = new Student(name, age, program, id);
-    student.ShowInfo();
-    if (Helpers.AskForBool("Legg til student?")) 
-        data.AddStudent(student);
-}
-
-void AddSubjectPrompt()
-{
-    var code = Helpers.AskForString("Fagkode: ", true);
-    var name = Helpers.AskForString("Fagnavn: ", true);
-    var points = Helpers.AskForInt("Studiepoeng: ");
-    var subject = new Subject(code, name, points);
-    subject.ShowInfo();
-    if (Helpers.AskForBool("Legg til fag?")) 
-        data.AddSubject(subject);
-}
-
-void AddAssessmentPrompt()
-{
-    throw new NotImplementedException();
 }

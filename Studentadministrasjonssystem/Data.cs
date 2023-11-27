@@ -79,4 +79,32 @@ public class Data
             student.ShowInfo();
         }
     }
+    
+    public void AddStudentPrompt()
+    {
+        var name = Helpers.AskForString("Navn: ", true);
+        var age = Helpers.AskForInt("Alder: ");
+        var program = Helpers.AskForString("Studieprogram: ", true);
+        var id = Helpers.AskForInt("StudentID: ");
+        var student = new Student(name, age, program, id);
+        student.ShowInfo();
+        if (Helpers.AskForBool("Legg til student?")) 
+            AddStudent(student);
+    }
+
+    public void AddSubjectPrompt()
+    {
+        var code = Helpers.AskForString("Fagkode: ", true);
+        var name = Helpers.AskForString("Fagnavn: ", true);
+        var points = Helpers.AskForInt("Studiepoeng: ");
+        var subject = new Subject(code, name, points);
+        subject.ShowInfo();
+        if (Helpers.AskForBool("Legg til fag?")) 
+            AddSubject(subject);
+    }
+
+    public void AddAssessmentPrompt()
+    {
+        throw new NotImplementedException();
+    }
 }
