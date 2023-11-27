@@ -47,13 +47,15 @@ public class Data
     public void ShowAll()
     {
         ShowStudents();
+        Console.WriteLine();
         ShowSubjects();
+        Console.WriteLine();
         ShowAssessments();
     }
 
     public void ShowAssessments()
     {
-        Console.WriteLine("\nKarakterer: ");
+        Console.WriteLine("Karakterer: ");
         foreach (var assessment in Assessments)
         {
             assessment.ShowInfo();
@@ -62,7 +64,7 @@ public class Data
 
     public void ShowSubjects()
     {
-        Console.WriteLine("\nFag: ");
+        Console.WriteLine("Fag: ");
         foreach (var subject in Subjects)
         {
             subject.ShowInfo();
@@ -71,7 +73,7 @@ public class Data
 
     public void ShowStudents()
     {
-        Console.WriteLine("\nStudenter: ");
+        Console.WriteLine("Studenter: ");
         foreach (var student in Students)
         {
             student.ShowInfo();
