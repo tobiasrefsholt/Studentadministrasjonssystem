@@ -25,10 +25,26 @@ public class Student
         Console.WriteLine($"({index}) Navn: {_name}, Alder: {_age}, Studieprogram: {_program}, Id: {_id}");
     }
 
-    public void ShowEditPrompt()
+    public void ShowMenu(Data data)
     {
         Console.Clear();
-        Console.WriteLine($"Edit student: {_name}");
+        Console.WriteLine($"Velg hva du vil gjøre med {_name}.");
+        Console.WriteLine("(1) Registrer ny karakter");
+        Console.WriteLine("(2) Vis karakterer");
+        Console.WriteLine("(3) Slett");
+        var option = Helpers.AskForInt("Skriv inn et tall: ", true, 1, 3);
+        switch (option)
+        {
+            case 1:
+                data.AddAssessmentPrompt(_id);
+                break;
+            case 2:
+                data.ShowAssessments(_id);
+                break;
+            case 3:
+                data.RemoveStudent(this);
+                break;
+        }
         Helpers.ContinuePrompt();
     }
 }

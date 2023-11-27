@@ -16,43 +16,35 @@ void ShowMenu()
     Console.WriteLine("1. Show students");
     Console.WriteLine("2. Show subjects");
     Console.WriteLine("3. Show assessments");
-    Console.WriteLine("4. Show all");
-    Console.WriteLine("5. Add Student");
-    Console.WriteLine("6. Add Subject");
-    Console.WriteLine("7. Add Assessment");
-    var input = Console.ReadLine();
+    Console.WriteLine("4. Add Student");
+    Console.WriteLine("5. Add Subject");
+    Console.WriteLine("6. Add Assessment");
+    var input = Helpers.AskForInt("Skriv in et nummer: ", true, 1, 6);
     Console.Clear();
     switch (input)
     {
-        case "1":
+        case 1:
             data.ShowStudents();
             break;
-        case "2":
+        case 2:
             data.ShowSubjects();
             Helpers.ContinuePrompt();
             break;
-        case "3":
+        case 3:
             data.ShowAssessments();
             Helpers.ContinuePrompt();
             break;
-        case "4":
-            data.ShowAll();
-            Helpers.ContinuePrompt();
-            break;
-        case "5":
+        case 4:
             data.AddStudentPrompt();
             Helpers.ContinuePrompt();
             break;
-        case "6":
+        case 5:
             data.AddSubjectPrompt();
             Helpers.ContinuePrompt();
             break;
-        case "7":
+        case 6:
             data.AddAssessmentPrompt();
             Helpers.ContinuePrompt();
-            break;
-        default:
-            Console.WriteLine("Ugyldig valg. Prøv igjen.");
             break;
     }
 }

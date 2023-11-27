@@ -21,6 +21,11 @@ public class Data
         Assessments.Add(assessment);
     }
 
+    public void RemoveStudent(Student student)
+    {
+        Students.Remove(student);
+    }
+
     public void AddTestData()
     {
         AddStudent(new Student("Torgeir Granskau", 18, "IT-arkitektur", 1469));
@@ -53,11 +58,12 @@ public class Data
         ShowAssessments();
     }
 
-    public void ShowAssessments()
+    public void ShowAssessments(int? studentId = null)
     {
         Console.WriteLine("Karakterer: ");
         foreach (var assessment in Assessments)
         {
+            if (studentId != null && assessment.StudentId != studentId) continue;
             assessment.ShowInfo();
         }
     }
@@ -82,8 +88,8 @@ public class Data
 
         var selectedIndex = Helpers.AskForInt("Velg student, eller trykk enter for å fortsette: ",false, 0, Students.Count-1);
         if (selectedIndex == null) return;
-        var SelectedStudent = Students[(int) selectedIndex];
-        SelectedStudent.ShowEditPrompt();
+        var selectedStudent = Students[(int) selectedIndex];
+        selectedStudent.ShowMenu(this);
     }
 
     public void AddStudentPrompt()
@@ -109,12 +115,12 @@ public class Data
             AddSubject(subject);
     }
 
-    public void AddAssessmentPrompt()
+    public void AddAssessmentPrompt(int? studentId = null)
     {
-        var studentId = (int) Helpers.AskForInt("StudentID: ", true)!;
+        studentId = studentId ?? (int) Helpers.AskForInt("StudentID: ", true)!;
         var subjectCode = Helpers.AskForString("Fagkode: ", true);
         var grade = Helpers.AskForChar("Karakter: ");
-        var assessment = new Assessment(studentId, subjectCode, grade);
+        var assessment = new Assessment((int)studentId, subjectCode, grade);
         assessment.ShowInfo();
         if (Helpers.AskForBool("Legg til karakter?"))
             AddAssessment(assessment);
