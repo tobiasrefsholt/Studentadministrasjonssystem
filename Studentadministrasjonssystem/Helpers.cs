@@ -30,6 +30,7 @@ public class Helpers
         {
             Console.WriteLine($"Tallet må være mellom {min}-{max}. Prøv igjen.");
         }
+
         return AskForInt(label, required, min, max);
     }
 

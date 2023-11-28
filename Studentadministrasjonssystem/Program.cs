@@ -5,8 +5,8 @@ using System.Security;
 using System.Xml.Linq;
 using Studentadministrasjonssystem;
 
-var data = new Data();
-data.AddTestData();
+var studentList = new StudentList();
+var subjectList = new SubjectList();
 
 while (true) ShowMenu();
 
@@ -15,36 +15,37 @@ void ShowMenu()
     Console.Clear();
     Console.WriteLine("1. Show students");
     Console.WriteLine("2. Show subjects");
-    Console.WriteLine("3. Show assessments");
-    Console.WriteLine("4. Add Student");
-    Console.WriteLine("5. Add Subject");
-    Console.WriteLine("6. Add Assessment");
-    var input = Helpers.AskForInt("Skriv in et nummer: ", true, 1, 6);
+    Console.WriteLine("3. Add Student");
+    Console.WriteLine("4. Add Subject");
+    Console.WriteLine("5. Add demo data");
+    var input = Helpers.AskForInt("Skriv in et nummer: ", true, 1, 5);
     Console.Clear();
     switch (input)
     {
         case 1:
-            data.ShowStudents();
+            studentList.Show();
             break;
         case 2:
-            data.ShowSubjects();
+            subjectList.Show();
             Helpers.ContinuePrompt();
             break;
         case 3:
-            data.ShowAssessments();
+            studentList.AddPrompt();
             Helpers.ContinuePrompt();
             break;
         case 4:
-            data.AddStudentPrompt();
+            subjectList.AddPrompt();
             Helpers.ContinuePrompt();
             break;
         case 5:
-            data.AddSubjectPrompt();
-            Helpers.ContinuePrompt();
-            break;
-        case 6:
-            data.AddAssessmentPrompt();
-            Helpers.ContinuePrompt();
+            AddDemoData();
             break;
     }
+}
+
+void AddDemoData()
+{
+    studentList.AddStudent(new Student("Torgeir Granskau", 18, "IT-arkitektur", 1469));
+    studentList.AddStudent(new Student("Geir Mykvare", 21, "Data Science", 1235));
+    subjectList.AddData();
 }
