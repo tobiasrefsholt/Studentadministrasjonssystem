@@ -3,6 +3,7 @@ namespace Studentadministrasjonssystem;
 public class SubjectList
 {
     private List<Subject> _subjects = new();
+    public int SubjectCount => _subjects.Count();
 
     public void AddData()
     {
@@ -20,11 +21,17 @@ public class SubjectList
         _subjects.Add(new Subject("IN4070", "Logikk", 10));
     }
 
-    public void Show()
+    public void Show(bool showIndex = false)
     {
         Console.WriteLine("Fag: ");
-        foreach (var subject in _subjects)
+        for (var index = 0; index < _subjects.Count; index++)
         {
+            var subject = _subjects[index];
+            if (showIndex)
+            {
+                subject.ShowInfo(index);
+                continue;
+            }
             subject.ShowInfo();
         }
     }
@@ -38,5 +45,11 @@ public class SubjectList
         subject.ShowInfo();
         if (Helpers.AskForBool("Legg til fag?"))
             _subjects.Add(subject);
+    }
+    
+    public Subject? GetSubject(int selectedSubjectIndex)
+    {
+        if (selectedSubjectIndex >= _subjects.Count || selectedSubjectIndex < 0) return null;
+        return _subjects[selectedSubjectIndex];
     }
 }

@@ -18,9 +18,17 @@ public class Student
         _id = id;
     }
 
-    public void AddSubject(Subject subject)
+    private void AddSubjectPrompt(SubjectList subjectList)
     {
-        _subjects.Add(subject);
+        subjectList.Show(true);
+        var selectedSubjectIndex = Helpers.AskForInt("Velg et fag, eller trykk enter for å avbryte: ", false, 0,
+            subjectList.SubjectCount-1);
+        if (selectedSubjectIndex == null) return;
+        
+        var selectedSubject = subjectList.GetSubject((int)selectedSubjectIndex);
+        if (selectedSubject == null) return;
+        selectedSubject.ShowInfo();
+        _subjects.Add(selectedSubject);
     }
 
     public void RemoveSubject(Subject subject)
@@ -37,18 +45,30 @@ public class Student
     {
         _grades.Remove(grade);
     }
-    
-    public void ShowGrades()
+
+    private void ShowSubjects()
     {
+        Console.Clear();
         Console.WriteLine("Fag: ");
+        foreach (var subject in _subjects)
+        {
+            subject.ShowInfo();
+        }
+    }
+    
+    private void ShowGrades()
+    {
+        Console.Clear();
+        Console.WriteLine("Karakterer: ");
         foreach (var grade in _grades)
         {
             grade.ShowInfo();
         }
     }
     
-    public void AddGradePrompt(int? studentId = null)
+    private void AddGradePrompt(int? studentId = null)
     {
+        Console.Clear();
         studentId ??= (int)Helpers.AskForInt("StudentID: ", true)!;
         var subjectCode = Helpers.AskForString("Fagkode: ", true);
         var gradeInput = Helpers.AskForChar("Karakter: ");
@@ -68,27 +88,45 @@ public class Student
         Console.WriteLine($"({index}) Navn: {_name}, Alder: {_age}, Studieprogram: {_program}, Id: {_id}");
     }
 
-    public void ShowMenu(StudentList studentList)
+    public void ShowMenu(StudentList studentList, SubjectList subjectList)
     {
         Console.Clear();
         Console.WriteLine($"Velg hva du vil gjøre med {_name}.");
-        Console.WriteLine("(1) Registrer ny karakter");
+        Console.WriteLine("(1) Vis fag som studenten tar");
         Console.WriteLine("(2) Vis karakterer");
-        Console.WriteLine("(3) Slett");
-        var option = Helpers.AskForInt("Skriv inn et tall: ", true, 1, 3);
+        Console.WriteLine("(3) Legg til fag");
+        Console.WriteLine("(4) Registrer ny karakter");
+        Console.WriteLine("(5) Slett");
+        Console.WriteLine("(6) Tilbake til hovedmeny");
+        var option = Helpers.AskForInt("Skriv inn et tall: ", true, 1, 6);
         switch (option)
         {
             case 1:
-                AddGradePrompt();
+                ShowSubjects();
+                Helpers.ContinuePrompt();
+                ShowMenu(studentList, subjectList);
                 break;
             case 2:
                 ShowGrades();
+                Helpers.ContinuePrompt();
+                ShowMenu(studentList, subjectList);
                 break;
             case 3:
+                AddSubjectPrompt(subjectList);
+                ShowMenu(studentList, subjectList);
+                break;
+            case 4:
+                AddGradePrompt();
+                Helpers.ContinuePrompt();
+                ShowMenu(studentList, subjectList);
+                break;
+            case 5:
                 studentList.RemoveStudent(this);
+                Helpers.ContinuePrompt();
+                ShowMenu(studentList, subjectList);
+                break;
+            case 6:
                 break;
         }
-
-        Helpers.ContinuePrompt();
     }
 }

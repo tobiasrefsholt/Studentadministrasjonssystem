@@ -14,7 +14,7 @@ public class StudentList
         Students.Remove(student);
     }
     
-    public void Show()
+    public void Show(SubjectList subjectList)
     {
         Console.WriteLine("Studenter: ");
         for (var index = 0; index < Students.Count; index++)
@@ -27,7 +27,7 @@ public class StudentList
             Students.Count - 1);
         if (selectedIndex == null) return;
         var selectedStudent = Students[(int)selectedIndex];
-        selectedStudent.ShowMenu(this);
+        selectedStudent.ShowMenu(this, subjectList);
     }
     
     public void AddPrompt()

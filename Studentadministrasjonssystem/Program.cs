@@ -23,7 +23,7 @@ void ShowMenu()
     switch (input)
     {
         case 1:
-            studentList.Show();
+            studentList.Show(subjectList);
             break;
         case 2:
             subjectList.Show();
