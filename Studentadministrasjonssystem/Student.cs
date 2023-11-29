@@ -51,6 +51,18 @@ public class Student
 
             subject.ShowInfo();
         }
+        Console.WriteLine("Antall studiepoeng: " + GetTotalPoints());
+    }
+
+    private int GetTotalPoints()
+    {
+        var pointsArray = new int[_subjects.Count];
+        for (int index = 0; index < _subjects.Count; index++)
+        {
+            var subject = _subjects[index];
+            pointsArray[index] = subject.GetPoints();
+        }
+        return pointsArray.Sum();
     }
 
     private double GetAverageGrade()

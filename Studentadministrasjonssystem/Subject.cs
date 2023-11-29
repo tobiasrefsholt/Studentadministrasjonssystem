@@ -17,6 +17,11 @@ public class Subject
     {
         return _code;
     }
+    
+    public int GetPoints()
+    {
+        return _points;
+    }
 
     public void ShowInfo()
     {
