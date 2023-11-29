@@ -20,7 +20,7 @@ public class Grade
 
     public void ShowInfo()
     {
-        Console.WriteLine($"Student ID: {_student.GetId()}, Kode: {_subject.GetCode()}, Karakter: {_grade}");
+        Console.WriteLine($"Kode: {_subject.GetCode()}, Fag: {_subject.GetName()}, Karakter: {_grade}");
     }
 
     public void ShowInfo(int index)

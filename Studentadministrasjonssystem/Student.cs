@@ -103,7 +103,7 @@ public class Student
 
             grade.ShowInfo();
         }
-        Console.WriteLine("Gjennomsnitskarakter (konvertert til tall): " + GetAverageGrade());
+        Console.WriteLine("\nGjennomsnitskarakter (konvertert til tall): " + GetAverageGrade());
     }
 
     private void AddGradePrompt()
@@ -111,11 +111,14 @@ public class Student
         Console.Clear();
         ShowSubjects(true);
         var selectedSubjectIndex = Helpers.AskForInt(
-            "Velg et fag for å legge til en karakter",
+            "Velg et fag for å legge til en karakter: ",
             false, 0, _subjects.Count - 1
         );
         if (selectedSubjectIndex == null) return;
         var selectedSubject = _subjects[(int)selectedSubjectIndex];
+        Console.Clear();
+        Console.WriteLine("Legg til karakter for faget: ");
+        selectedSubject.ShowInfo();
         var gradeInput = Helpers.AskForChar("Karakter: ");
         var grade = new Grade(this, selectedSubject, gradeInput);
         grade.ShowInfo();

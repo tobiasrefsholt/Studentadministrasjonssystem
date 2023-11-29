@@ -13,6 +13,11 @@ public class Subject
         _points = points;
     }
 
+    public string GetName()
+    {
+        return _name;
+    }
+
     public string GetCode()
     {
         return _code;
