@@ -2,19 +2,24 @@ namespace Studentadministrasjonssystem;
 
 public class Grade
 {
-    private int _studentId;
-    private string _subjectCode;
+    private Student _student;
+    private Subject _subject;
     private char _grade;
 
-    public Grade(int studentId, string subjectCode, char grade)
+    public Grade(Student student, Subject subject, char grade)
     {
-        _studentId = studentId;
-        _subjectCode = subjectCode;
+        _student = student;
+        _subject = subject;
         _grade = grade;
     }
-
+    
     public void ShowInfo()
     {
-        Console.WriteLine($"Student ID: {_studentId}, Kode: {_subjectCode}, Karakter: {_grade}");
+        Console.WriteLine($"Student ID: {_student.GetId()}, Kode: {_subject.GetCode()}, Karakter: {_grade}");
+    }
+
+    public void ShowInfo(int index)
+    {
+        Console.WriteLine($"{index}Student ID: {_student.GetId()}, Kode: {_subject.GetCode()}, Karakter: {_grade}");
     }
 }

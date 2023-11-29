@@ -3,7 +3,7 @@ namespace Studentadministrasjonssystem;
 public class SubjectList
 {
     private List<Subject> _subjects = new();
-    public int SubjectCount => _subjects.Count();
+    public int SubjectCount => _subjects.Count;
 
     public void AddData()
     {

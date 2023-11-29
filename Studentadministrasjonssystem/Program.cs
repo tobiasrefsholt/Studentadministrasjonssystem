@@ -13,11 +13,11 @@ while (true) ShowMenu();
 void ShowMenu()
 {
     Console.Clear();
-    Console.WriteLine("1. Show students");
-    Console.WriteLine("2. Show subjects");
-    Console.WriteLine("3. Add Student");
-    Console.WriteLine("4. Add Subject");
-    Console.WriteLine("5. Add demo data");
+    Console.WriteLine("1. Vis studenter");
+    Console.WriteLine("2. Vis alle fag");
+    Console.WriteLine("3. Legg til student");
+    Console.WriteLine("4. Legg til fag");
+    Console.WriteLine("5. Legg til testdata");
     var input = Helpers.AskForInt("Skriv in et nummer: ", true, 1, 5);
     Console.Clear();
     switch (input)

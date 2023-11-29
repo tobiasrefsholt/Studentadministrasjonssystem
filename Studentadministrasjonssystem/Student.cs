@@ -1,3 +1,5 @@
+using System.Dynamic;
+
 namespace Studentadministrasjonssystem;
 
 public class Student
@@ -18,13 +20,18 @@ public class Student
         _id = id;
     }
 
+    public int GetId()
+    {
+        return _id;
+    }
+
     private void AddSubjectPrompt(SubjectList subjectList)
     {
         subjectList.Show(true);
         var selectedSubjectIndex = Helpers.AskForInt("Velg et fag, eller trykk enter for å avbryte: ", false, 0,
-            subjectList.SubjectCount-1);
+            subjectList.SubjectCount - 1);
         if (selectedSubjectIndex == null) return;
-        
+
         var selectedSubject = subjectList.GetSubject((int)selectedSubjectIndex);
         if (selectedSubject == null) return;
         selectedSubject.ShowInfo();
@@ -36,43 +43,52 @@ public class Student
         _subjects.Remove(subject);
     }
 
-    public void AddAssessment(Grade grade)
-    {
-        _grades.Add(grade);
-    }
-
-    public void RemoveAssessment(Grade grade)
-    {
-        _grades.Remove(grade);
-    }
-
-    private void ShowSubjects()
+    private void ShowSubjects(bool showIndex = false)
     {
         Console.Clear();
         Console.WriteLine("Fag: ");
-        foreach (var subject in _subjects)
+        for (var index = 0; index < _subjects.Count; index++)
         {
+            var subject = _subjects[index];
+            if (showIndex)
+            {
+                subject.ShowInfo(index);
+                continue;
+            }
+
             subject.ShowInfo();
         }
     }
-    
-    private void ShowGrades()
+
+    private void ShowGrades(bool showIndex = false)
     {
         Console.Clear();
         Console.WriteLine("Karakterer: ");
-        foreach (var grade in _grades)
+        for (var index = 0; index < _grades.Count; index++)
         {
+            var grade = _grades[index];
+            if (showIndex)
+            {
+                grade.ShowInfo(index);
+                continue;
+            }
+
             grade.ShowInfo();
         }
     }
-    
+
     private void AddGradePrompt(int? studentId = null)
     {
         Console.Clear();
-        studentId ??= (int)Helpers.AskForInt("StudentID: ", true)!;
-        var subjectCode = Helpers.AskForString("Fagkode: ", true);
+        ShowSubjects(true);
+        var selectedSubjectIndex = Helpers.AskForInt(
+            "Velg et fag for å legge til en karakter",
+            false, 0, _subjects.Count - 1
+        );
+        if (selectedSubjectIndex == null) return;
+        var selectedSubject = _subjects[(int)selectedSubjectIndex];
         var gradeInput = Helpers.AskForChar("Karakter: ");
-        var grade = new Grade((int)studentId, subjectCode, gradeInput);
+        var grade = new Grade(this, selectedSubject, gradeInput);
         grade.ShowInfo();
         if (Helpers.AskForBool("Legg til karakter?"))
             _grades.Add(grade);
@@ -103,30 +119,25 @@ public class Student
         {
             case 1:
                 ShowSubjects();
-                Helpers.ContinuePrompt();
-                ShowMenu(studentList, subjectList);
                 break;
             case 2:
                 ShowGrades();
-                Helpers.ContinuePrompt();
-                ShowMenu(studentList, subjectList);
                 break;
             case 3:
                 AddSubjectPrompt(subjectList);
-                ShowMenu(studentList, subjectList);
                 break;
             case 4:
                 AddGradePrompt();
-                Helpers.ContinuePrompt();
-                ShowMenu(studentList, subjectList);
                 break;
             case 5:
                 studentList.RemoveStudent(this);
-                Helpers.ContinuePrompt();
-                ShowMenu(studentList, subjectList);
                 break;
             case 6:
+                return;
                 break;
         }
+
+        Helpers.ContinuePrompt();
+        ShowMenu(studentList, subjectList);
     }
 }
