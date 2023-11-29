@@ -36,11 +36,6 @@ public class Student
         _subjects.Add(selectedSubject);
     }
 
-    public void RemoveSubject(Subject subject)
-    {
-        _subjects.Remove(subject);
-    }
-
     private void ShowSubjects(bool showIndex = false)
     {
         Console.Clear();
@@ -58,6 +53,29 @@ public class Student
         }
     }
 
+    private double GetAverageGrade()
+    {
+        var numbers = new int[_grades.Count];
+        for (var index = 0; index < _grades.Count; index++)
+        {
+            var grade = _grades[index];
+            var value = grade.GetValue();
+            if (char.IsNumber(value))
+            {
+                numbers[index] = value - '0';
+            }
+            else
+            {
+                var gradeOffset = (value % 32) - 1;
+                numbers[index] = 6 - gradeOffset;
+            }
+        }
+
+        var sum = numbers.Sum();
+        if (sum == 0) return 0;
+        return (double)sum / numbers.Length;
+    }
+
     private void ShowGrades(bool showIndex = false)
     {
         Console.Clear();
@@ -73,6 +91,7 @@ public class Student
 
             grade.ShowInfo();
         }
+        Console.WriteLine("Gjennomsnitskarakter (konvertert til tall): " + GetAverageGrade());
     }
 
     private void AddGradePrompt()

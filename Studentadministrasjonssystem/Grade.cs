@@ -13,6 +13,11 @@ public class Grade
         _grade = grade;
     }
 
+    public char GetValue()
+    {
+        return _grade;
+    }
+
     public void ShowInfo()
     {
         Console.WriteLine($"Student ID: {_student.GetId()}, Kode: {_subject.GetCode()}, Karakter: {_grade}");
