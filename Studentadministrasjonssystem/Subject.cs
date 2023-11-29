@@ -17,12 +17,12 @@ public class Subject
     {
         return _code;
     }
-    
+
     public void ShowInfo()
     {
         Console.WriteLine($"Kode {_code}, Fag: {_name}, Studiepoeng: {_points}");
     }
-    
+
     public void ShowInfo(int index)
     {
         Console.WriteLine($"({index}) Kode {_code}, Fag: {_name}, Studiepoeng: {_points}");

@@ -12,7 +12,7 @@ public class Grade
         _subject = subject;
         _grade = grade;
     }
-    
+
     public void ShowInfo()
     {
         Console.WriteLine($"Student ID: {_student.GetId()}, Kode: {_subject.GetCode()}, Karakter: {_grade}");

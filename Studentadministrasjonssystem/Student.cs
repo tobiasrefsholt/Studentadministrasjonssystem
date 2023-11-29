@@ -1,5 +1,3 @@
-using System.Dynamic;
-
 namespace Studentadministrasjonssystem;
 
 public class Student
@@ -77,7 +75,7 @@ public class Student
         }
     }
 
-    private void AddGradePrompt(int? studentId = null)
+    private void AddGradePrompt()
     {
         Console.Clear();
         ShowSubjects(true);
@@ -134,7 +132,6 @@ public class Student
                 break;
             case 6:
                 return;
-                break;
         }
 
         Helpers.ContinuePrompt();

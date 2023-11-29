@@ -13,7 +13,7 @@ public class StudentList
     {
         Students.Remove(student);
     }
-    
+
     public void Show(SubjectList subjectList)
     {
         Console.WriteLine("Studenter: ");
@@ -29,7 +29,7 @@ public class StudentList
         var selectedStudent = Students[(int)selectedIndex];
         selectedStudent.ShowMenu(this, subjectList);
     }
-    
+
     public void AddPrompt()
     {
         var name = Helpers.AskForString("Navn: ", true);
